@@ -1,0 +1,25 @@
+{
+  "name": "portfolio_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanleyyylau/portfolio_api.git"
+  },
+  "author": "Stanley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stanleyyylau/portfolio_api/issues"
+  },
+  "homepage": "https://github.com/stanleyyylau/portfolio_api#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0"
+  }
+}
