@@ -84,7 +84,7 @@ app.post('/message', function(req, res){
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
       to: 'stanleyyylau@gmail.com', // list of receivers
-      subject: 'Email Example', // Subject line
+      subject: 'U just receive a message from your fortfolio website...', // Subject line
       text: text //, // plaintext body
       // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
   };
