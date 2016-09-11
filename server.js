@@ -17,6 +17,7 @@ var app = express();
 var port = process.env.PORT || 5000;
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.static('public'));
 
 
 
@@ -29,7 +30,7 @@ app.post('/all_work', function(req, res){
 })
 
 app.get('/', function(req, res){
-  res.send('hello');
+  res.send(index.html);
 })
 
 app.post('/add_work', function(req, res){
