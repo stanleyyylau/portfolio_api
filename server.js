@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var nodemailer = require('nodemailer');
+
 
 mongoose.connect('mongodb://stanley:stanley@ds029426.mlab.com:29426/portfolio');
 var db = mongoose.connection;
@@ -68,6 +70,35 @@ app.post('/delete_work', function(req, res){
     })
   }
 })
+
+app.post('/message', function(req, res){
+  console.log('about to send email to you');
+  var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'stanleyyylauserver@gmail.com', // Your email id
+            pass: 'stanleylau2016' // Your password
+        }
+    });
+  var text = req.body.message;
+  var mailOptions = {
+      from: 'stanleyyylauserver@gmail.com', // sender address
+      to: 'stanleyyyalu@gmail.com', // list of receivers
+      subject: 'Email Example', // Subject line
+      text: text //, // plaintext body
+      // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          console.log(error);
+          res.json({yo: 'error'});
+      }else{
+          console.log('Message sent: ' + info.response);
+          res.json({yo: info.response});
+      };
+  });
+})
+
 
 app.listen(port, function () {
   console.log('Example app listening on port ' + port);
