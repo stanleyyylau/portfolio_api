@@ -77,7 +77,7 @@ app.post('/message', function(req, res){
         service: 'Gmail',
         auth: {
             user: 'stanleyyylauserver@gmail.com', // Your email id
-            pass: 'stanleylau2016' // Your password
+            pass: 'stanley2016' // Your password
         }
     });
   var text = req.body.message;
