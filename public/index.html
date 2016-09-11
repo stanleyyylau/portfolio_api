@@ -1,35 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Welcome to Stanley's portfolio API</title>
+    <title>Stanley's portfolio API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <h1>How to use?</h1>
-    <ul>
-      <li>https://st-portfolio-on.herokuapp.com/all_work</li>
-      <li>https://st-portfolio-on.herokuapp.com/update_work</li>
-      <li>https://st-portfolio-on.herokuapp.com/delete_work</li>
-      <li>https://st-portfolio-on.herokuapp.com/add_work</li>
-    </ul>
-    <h2>Get all my work</h2>
-    <p>
-      Mothod: POST
-    </p>
-    <h2>Add new work</h2>
-    <p>
-      Mothod: POST
-      Requst: title, imgUrl
-    </p>
-    <h2>Update work</h2>
-    <p>
-      Mothod: POST
-      Request: _id, title, imgUrl
-    </p>
-    <h2>Delete my work</h2>
-    <p>
-      Mothod: POST
-      Request: _id
-    </p>
+    <div class="container">
+      <h1>Fortfolio API</h1>
+      <blockquote cite="http://">
+        All endpoints use POST method, you can use them to retrive, update, add, delete my portfolio details stored in MongoDB,
+        You can also send message to me using the last endpoint.
+      </blockquote>
+      <ul class="list-unstyled">
+        <li><code>https://st-portfolio-on.herokuapp.com/all_work</code></li>
+        <li><code>https://st-portfolio-on.herokuapp.com/update_work</code></li>
+        <li><code>https://st-portfolio-on.herokuapp.com/delete_work</code></li>
+        <li><code>https://st-portfolio-on.herokuapp.com/add_work</code></li>
+        <li><code>https://st-portfolio-on.herokuapp.com/message</code></li>
+      </ul>
+      <h3>Get all my work</h3>
+      <p>
+        Mothod: POST
+      </p>
+      <h3>Add new work</h3>
+      <p>
+        Mothod: POST
+        Requst: title, imgUrl
+      </p>
+      <h3>Update work</h3>
+      <p>
+        Mothod: POST
+        Request: _id, title, imgUrl
+      </p>
+      <h3>Delete my work</h3>
+      <p>
+        Mothod: POST
+        Request: _id
+      </p>
+      <h3>Send message to me</h3>
+      <p>
+        Mothod: POST
+        Request: message
+      </p>
+    </div>
+
   </body>
 </html>
