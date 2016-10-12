@@ -73,13 +73,16 @@ app.post('/delete_work', function(req, res){
 
 app.post('/message', function(req, res){
   console.log('about to send email to you');
-  var transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'stanleyyylauserver@gmail.com', // Your email id
-            pass: 'stanley2016' // Your password
-        }
-    });
+  // var transporter = nodemailer.createTransport({
+  //       service: 'Gmail',
+  //       auth: {
+  //           user: 'stanleyyylauserver@gmail.com', // Your email id
+  //           pass: 'stanley2016' // Your password
+  //       }
+  //   });
+
+  var transporter = nodemailer.createTransport('smtps://stanleyyylauserver%40gmail.com:stanley2016@smtp.gmail.com');
+
   var text = req.body.message;
   console.log("the message is " + text);
   var mailOptions = {
