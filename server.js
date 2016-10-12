@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var nodemailer = require('nodemailer');
+var cors = require('cors')
 
 
 mongoose.connect('mongodb://stanley:stanley@ds029426.mlab.com:29426/portfolio');
@@ -21,11 +22,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
- });
+app.use(cors());
 
 app.post('/all_work', function(req, res){
   console.log('someone wants to get all your work details!!!');
