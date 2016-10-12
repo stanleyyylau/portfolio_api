@@ -22,6 +22,7 @@
   "homepage": "https://github.com/stanleyyylau/portfolio_api#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "mongoose": "^4.6.0",
     "nodemailer": "^2.6.0"
