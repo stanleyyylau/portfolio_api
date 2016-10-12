@@ -81,6 +81,7 @@ app.post('/message', function(req, res){
         }
     });
   var text = req.body.message;
+  console.log("the message is " + text);
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
       to: 'stanleyyylau@gmail.com', // list of receivers
@@ -94,7 +95,7 @@ app.post('/message', function(req, res){
           res.json({yo: 'error'});
       }else{
           console.log('Message sent: ' + info.response);
-          res.json({yo: info.response});
+          res.json({yo: info.response, status: 200});
       };
   });
 })
