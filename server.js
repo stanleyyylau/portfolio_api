@@ -17,12 +17,13 @@ var workSchema = mongoose.Schema({
 var Work = mongoose.model('works', workSchema);
 
 var app = express();
+app.use(cors());
 var port = process.env.PORT || 5000;
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
 
-app.use(cors());
+
 
 app.post('/all_work', function(req, res){
   console.log('someone wants to get all your work details!!!');
