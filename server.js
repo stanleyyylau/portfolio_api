@@ -1,92 +1,80 @@
-var mongoose = require('mongoose');
+require('./config/config');
+
+// Third party or built in modules
 var express = require('express');
 var bodyParser = require('body-parser');
-
 var nodemailer = require('nodemailer');
 var cors = require('cors')
 
-
-mongoose.connect('mongodb://stanley:stanley@ds029426.mlab.com:29426/portfolio');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-var workSchema = mongoose.Schema({
-    title: String,
-    imgUrl: String
-});
-
-var Work = mongoose.model('works', workSchema);
+// Custom modules here
+var {mongoose} = require('./db/mongoose');
+var {Work} = require('./models/work');
 
 var app = express();
+const port = process.env.PORT;
+
+// Global middlewares
 app.use(cors());
-var port = process.env.PORT || 5000;
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
+app.get('/', function(req, res){
+  res.send(index.html);
+})
 
 app.post('/all_work', function(req, res){
-  console.log('someone wants to get all your work details!!!');
     Work.find(function(err, allWorks){
       if (err) return console.error(err);
       res.send(allWorks);
     })
 })
 
-app.get('/', function(req, res){
-  res.send(index.html);
-})
-
 app.post('/add_work', function(req, res){
-  console.log('Posting a new work to your portfolio...');
-  console.log(req.body);
   if(typeof req.body.title === 'string' && typeof req.body.imgUrl === 'string'){
       var newWorkItem = new Work({title: req.body.title , imgUrl:req.body.imgUrl});
       newWorkItem.save(function(err,newWorkItem){
-        if(err) return console.error(err);
-        console.log(newWorkItem + " save to database!!!");
+        if(err) {
+          return console.error(err);
+        }else{
+          res.json(newWorkItem);
+        }
       });
   }
 });
 
 app.post('/update_work', function(req, res){
-  console.log('Updating one of your previous work..');
   if(typeof req.body._id === 'string'){
     var query = {'_id': req.body._id};
     var updates = {title: req.body.title, imgUrl: req.body.imgUrl};
     Work.findOneAndUpdate(query, updates, function(err, work){
-      if (err) return console.error(err);
-      console.log("updated an item, done!!!");
-      console.log(work);
+      if (err) {
+        return console.error(err);
+      }else{
+        res.json(work);
+      }
     })
   }
 })
 
-
 app.post('/delete_work', function(req, res){
-  console.log('Deleteing one of your previous work..');
   if(typeof req.body._id === 'string'){
     Work.remove({_id: req.body._id}, function(err){
-      if(err) return console.error(err);
-      console.log('remove one item, done');
+      if(err) {
+        return console.error(err);
+      }else{
+        res.json({
+          isRemove: true
+        })
+      }
     })
   }
 })
 
 app.post('/message', function(req, res){
-  console.log('about to send email to you');
-  // var transporter = nodemailer.createTransport({
-  //       service: 'Gmail',
-  //       auth: {
-  //           user: 'stanleyyylauserver@gmail.com', // Your email id
-  //           pass: 'stanley2016' // Your password
-  //       }
-  //   });
-
   var transporter = nodemailer.createTransport('smtps://stanleyyylauserver%40gmail.com:stanley2016@smtp.gmail.com');
-
   var text = JSON.stringify(req.body.message);
-  console.log("the message is " + text);
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
       to: 'stanleyyylau@gmail.com', // list of receivers
@@ -96,10 +84,8 @@ app.post('/message', function(req, res){
   };
   transporter.sendMail(mailOptions, function(error, info){
       if(error){
-          console.log(error);
           res.json({yo: 'error'});
       }else{
-          console.log('Message sent: ' + info.response);
           res.json({yo: info.response, status: 200});
       };
   });
