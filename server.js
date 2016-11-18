@@ -85,7 +85,7 @@ app.post('/message', function(req, res){
 
   var transporter = nodemailer.createTransport('smtps://stanleyyylauserver%40gmail.com:stanley2016@smtp.gmail.com');
 
-  var text = JSON.stringify(req.body.message);
+  var text = JSON.stringify(req.body.message) || JSON.stringify(req.body, null, 2);
   console.log("the message is " + text);
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
