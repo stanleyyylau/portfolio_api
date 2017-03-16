@@ -103,7 +103,7 @@ app.post('/message', function(req, res){
   });
 
   var contentFromUser = req.body.message;
-      contentFromUser.ip = request.connection.remoteAddress;
+      contentFromUser.ip = req.connection.remoteAddress;
   var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
   console.log("the message is " + text);
   var mailOptions = {
