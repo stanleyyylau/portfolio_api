@@ -5,6 +5,13 @@ var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var cors = require('cors')
 
+var mailInfo = {
+	host: "smtp.gmail.com",
+	domains: ["gmail.com", "googlemail.com"],
+	port: 465,
+	userAcount: "stanleyyylauserver@gmail.com",
+	userPassword: "stanleyyylau"
+}
 
 mongoose.connect('mongodb://stanley:stanley@ds029426.mlab.com:29426/portfolio');
 var db = mongoose.connection;
@@ -83,7 +90,17 @@ app.post('/message', function(req, res){
   //       }
   //   });
 
-  var transporter = nodemailer.createTransport('smtps://stanleyyylauserver%40gmail.com:stanley2016@smtp.gmail.com');
+  var transporter = nodemailer.createTransport({
+        host: mailInfo.host,      //mail service mail host
+        domains: mailInfo.domains,
+        secureConnection:true,      //secureConnection 使用安全连接
+        port: mailInfo.port,                   //port STMP端口号
+        auth:{
+          user: mailInfo.userAcount, //Email address
+          pass: mailInfo.userPassword //Email pw
+       },
+       debug: true
+  });
 
   var text = JSON.stringify(req.body.message, null, 2) || JSON.stringify(req.body, null, 2);
   console.log("the message is " + text);
