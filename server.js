@@ -102,7 +102,9 @@ app.post('/message', function(req, res){
        debug: true
   });
 
-  var text = JSON.stringify(req.body.message, null, 2) || JSON.stringify(req.body, null, 2);
+  var contentFromUser = req.body.message;
+      contentFromUser.ip = request.connection.remoteAddress;
+  var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
   console.log("the message is " + text);
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
