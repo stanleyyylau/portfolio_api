@@ -43,6 +43,8 @@ const ipMiddleware = function(req, res, next) {
     next();
 };
 
+app.use(ipMiddleware)
+
 app.post('/all_work', function(req, res){
   console.log('someone wants to get all your work details!!!');
     Work.find(function(err, allWorks){
