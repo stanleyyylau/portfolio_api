@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var cors = require('cors')
 
+var https = require("https");
+setInterval(function() {
+    https.get("https://st-portfolio-on.herokuapp.com/");
+}, 300000); // every 5 minutes (300000)
+
 var mailInfo = {
 	host: "smtp.gmail.com",
 	domains: ["gmail.com", "googlemail.com"],
