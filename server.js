@@ -108,7 +108,7 @@ app.post('/message', function(req, res){
   });
 
   var contentFromUser = {
-        ip: req.connection.remoteAddress,
+        ip: req.ip,
         message: req.body
       }
   var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
