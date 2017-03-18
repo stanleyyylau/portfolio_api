@@ -35,7 +35,13 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
 
-
+const requestIp = require('request-ip');
+ 
+// inside middleware handler 
+const ipMiddleware = function(req, res, next) {
+    const clientIp = requestIp.getClientIp(req); 
+    next();
+};
 
 app.post('/all_work', function(req, res){
   console.log('someone wants to get all your work details!!!');
@@ -108,7 +114,7 @@ app.post('/message', function(req, res){
   });
 
   var contentFromUser = {
-        ip: req.ip,
+        ip: clientIp,
         message: req.body
       }
   var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
