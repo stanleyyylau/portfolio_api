@@ -37,9 +37,11 @@ app.use(express.static('public'));
 
 const requestIp = require('request-ip');
  
+var clientIp;
+
 // inside middleware handler 
 const ipMiddleware = function(req, res, next) {
-    const clientIp = requestIp.getClientIp(req); 
+    clientIp = requestIp.getClientIp(req); 
     next();
 };
 
