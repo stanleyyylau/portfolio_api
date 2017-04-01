@@ -36,12 +36,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static('public'));
 
 const requestIp = require('request-ip');
- 
+
 var clientIp;
 
-// inside middleware handler 
+// inside middleware handler
 const ipMiddleware = function(req, res, next) {
-    clientIp = requestIp.getClientIp(req); 
+    clientIp = requestIp.getClientIp(req);
     next();
 };
 
@@ -125,7 +125,7 @@ app.post('/message', function(req, res){
   console.log("the message is " + text);
   var mailOptions = {
       from: 'stanleyyylauserver@gmail.com', // sender address
-      to: 'stanleyyylau@gmail.com', // list of receivers
+      to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
       subject: 'U just receive a message from your fortfolio website...', // Subject line
       text: text //, // plaintext body
       // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
