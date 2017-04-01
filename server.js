@@ -101,7 +101,7 @@ app.post('/message', function(req, res){
   if(req.body.mml) {
     request.post(
         'https://sms.yunpian.com/v1/sms/send.json',
-        { json: {
+        { form: {
           apikey: '07a08fdf8a3a2bf62359e86ab9ffa207',
           mobile: '18819105993,13798656121',
           text: '【慢慢来】您的网站收到一条新的留言'
