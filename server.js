@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
 
 var nodemailer = require('nodemailer');
 var cors = require('cors')
