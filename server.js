@@ -149,7 +149,7 @@ app.post('/message', function(req, res){
 
   var newLead = new Lead({
     ip: clientIp,
-    message: req.body
+    msg: req.body
   })  
 
   newLead.save(function(err, doc){
