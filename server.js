@@ -104,6 +104,20 @@ app.post('/delete_work', function(req, res){
 })
 
 app.post('/message', function(req, res){
+
+  var newLead = new Lead({
+    ip: clientIp,
+    msg: req.body
+  })  
+
+  newLead.save(function(err, doc){
+    if(err){
+      console.log(err)
+    } else {
+      console.log('save to db')
+    }
+  })  
+
   // if this msg is from mml website, send SNS also
   if(req.body.mml) {
     request.post(
@@ -147,15 +161,7 @@ app.post('/message', function(req, res){
         message: req.body
       }
 
-  var newLead = new Lead({
-    ip: clientIp,
-    msg: req.body
-  })  
 
-  newLead.save(function(err, doc){
-    if(err) console.log(err)
-    console.log(doc)
-  })  
 
   var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
   console.log("the message is " + text);
