@@ -29,7 +29,7 @@ var workSchema = mongoose.Schema({
 
 var leadSchema = mongoose.Schema({
     ip: String,
-    msg: String
+    msg: Object
 });
 
 var Work = mongoose.model('works', workSchema);
@@ -107,7 +107,7 @@ app.post('/message', function(req, res){
 
   var newLead = new Lead({
     ip: clientIp,
-    msg: JSON.stringify(req.body, null, 2)
+    msg: req.body
   })  
 
   newLead.save(function(err, doc){
