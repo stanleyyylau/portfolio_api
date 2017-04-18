@@ -27,7 +27,14 @@ var workSchema = mongoose.Schema({
     imgUrl: String
 });
 
+var leadSchema = mongoose.Schema({
+    ip: String,
+    msg: Object
+});
+
 var Work = mongoose.model('works', workSchema);
+
+var Lead = mongoose.model('leads', leadSchema);
 
 var app = express();
 app.use(cors());
@@ -100,7 +107,7 @@ app.post('/message', function(req, res){
   // if this msg is from mml website, send SNS also
   if(req.body.mml) {
     request.post(
-        'https://sms.yunpian.com/v1/sms/send.json',
+        'https://sms.yunpian.com/v2/sms/batch_send.json',
         { form: {
           apikey: '07a08fdf8a3a2bf62359e86ab9ffa207',
           mobile: '18819105993,13798656121',
@@ -139,6 +146,17 @@ app.post('/message', function(req, res){
         ip: clientIp,
         message: req.body
       }
+
+  var newLead = new Lead({
+    ip: clientIp,
+    message: req.body
+  })  
+
+  newLead.save(function(err, doc){
+    if(err) console.log(err)
+    console.log(doc)
+  })  
+
   var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
   console.log("the message is " + text);
   var mailOptions = {
