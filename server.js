@@ -156,7 +156,7 @@ app.post('/message', function(req, res){
 
       var text = contentFromUser;
       console.log("the message is " + text);
-      if(text.message.location.indexOf('contact.html') > 0){
+      if(text.message.location.indexOf('contact.html') > 1){
         // if this is sent from contact.html page
         var emailHtml = `<p>收到询盘<p></br>
                         <h2>客户信息如下</h2>
