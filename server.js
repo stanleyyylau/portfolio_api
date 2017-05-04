@@ -185,14 +185,15 @@ app.post('/message', function(req, res){
 
       } else {
         
-        var emailHtml = `<p>${text.message.message.qa1.question}</br>
-                          ${text.message.message.qa1.answer}</br>
-                          ${text.message.message.qa2.question}</br>
-                          ${text.message.message.qa2.answer}</br>
-                          ${text.message.message.qa3.question}</br>
-                          ${text.message.message.qa3.answer}</br>
-                          ${text.message.message.qa4.question}</br>
-                          ${text.message.message.qa4.answer}
+        var emailHtml = `<h2>官网收到询盘，问答题如下</h2>
+                        <p>问：${text.message.message.qa1.question}</br>
+                          <b>答：${text.message.message.qa1.answer}</b></br>
+                          问：${text.message.message.qa2.question}</br>
+                          <b>答：${text.message.message.qa2.answer}</b></br>
+                          问：${text.message.message.qa3.question}</br>
+                          <b>答：${text.message.message.qa3.answer}</b></br>
+                          问：${text.message.message.qa4.question}</br>
+                          <b>答：${text.message.message.qa4.answer}</b>
                           </p>
                         <h2>客户信息如下</h2>
                         <p>目前的网站：${text.message.message.clientInfo.website}</br>
