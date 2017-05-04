@@ -154,7 +154,7 @@ app.post('/message', function(req, res){
 
 
 
-      var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
+      var text = contentFromUser;
       console.log("the message is " + text);
       if(text.message.location.indexOf('contact.html')){
         // if this is sent from contact.html page
