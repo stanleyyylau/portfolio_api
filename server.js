@@ -133,6 +133,96 @@ app.post('/message', function(req, res){
             }
         }
     );
+
+    // if this is an inquiry from mmldigi, make the leads email more human readable
+    var transporter = nodemailer.createTransport({
+            host: mailInfo.host,      //mail service mail host
+            domains: mailInfo.domains,
+            secureConnection:true,      //secureConnection 使用安全连接
+            port: mailInfo.port,                   //port STMP端口号
+            auth:{
+              user: mailInfo.userAcount, //Email address
+              pass: mailInfo.userPassword //Email pw
+          },
+          debug: true
+      });
+
+      var contentFromUser = {
+            ip: clientIp,
+            message: req.body
+          }
+
+
+
+      var text = JSON.stringify(contentFromUser, null, 2) || JSON.stringify(contentFromUser, null, 2);
+      console.log("the message is " + text);
+      if(text.message.location.indexOf('contact.html')){
+        // if this is sent from contact.html page
+        var emailHtml = `<p>收到询盘<p></br>
+                        <h2>客户信息如下</h2>
+                        <p>姓名: ${text.message.message.name}</p></br>
+                        <p>手机: ${text.message.message.phone}</p></br>
+                        <p>给我们的留言: ${text.message.message.msg}</p></br>
+                        <p>询盘发送页面: ${text.message.location}</p></br>
+                        <p>询盘发送IP: ${text.ip}</p>
+                        `
+        var mailOptions = {
+            from: 'stanleyyylauserver@gmail.com', // sender address
+            to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
+            subject: '慢慢来官网收到一条询盘...', // Subject line
+            //text: text //, // plaintext body
+            html: emailHtml
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                console.log(error);
+                res.json({yo: 'error'});
+            }else{
+                console.log('Message sent: ' + info.response);
+                res.json({yo: info.response, status: 200});
+            };
+        });   
+
+      } else {
+        
+        var emailHtml = `<p>${text.message.message.qa1.question}<p></br>
+                        <p>${text.message.message.qa1.answer}</p></br>
+                        <p>${text.message.message.qa2.question}</p></br>
+                        <p>${text.message.message.qa2.answer}</p></br>
+                        <p>${text.message.message.qa3.question}</p></br>
+                        <p>${text.message.message.qa3.answer}</p></br>
+                        <p>${text.message.message.qa4.question}</p></br>
+                        <p>${text.message.message.qa4.answer}</p></br>
+                        <h2>客户信息如下</h2>
+                        <p>目前的网站：${text.message.message.clientInfo.website}</p></br>
+                        <p>姓名: ${text.message.message.clientInfo.name}</p></br>
+                        <p>邮件: ${text.message.message.clientInfo.phone}</p></br>
+                        <p>号码: ${text.message.message.clientInfo.msgToUs}</p></br>
+                        <p>给我们的留言:</p></br>
+                        <p>询盘发送页面: ${text.message.location}</p></br>
+                        <p>询盘发送IP: ${text.ip}</p>
+                        `
+        var mailOptions = {
+            from: 'stanleyyylauserver@gmail.com', // sender address
+            to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
+            subject: '慢慢来官网收到一条询盘...', // Subject line
+            //text: text //, // plaintext body
+            html: emailHtml
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                console.log(error);
+                res.json({yo: 'error'});
+            }else{
+                console.log('Message sent: ' + info.response);
+                res.json({yo: info.response, status: 200});
+            };
+        });            
+      }
+      // end function for mml enqury
+      return;
   }
 
   console.log('about to send email to you');
