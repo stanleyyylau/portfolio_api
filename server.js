@@ -31,6 +31,7 @@ var workSchema = mongoose.Schema({
 
 var leadSchema = mongoose.Schema({
     ip: String,
+    createdAt: {type: Date, default: Date.now},
     msg: Object
 });
 
@@ -130,7 +131,6 @@ app.post('/message', function(req, res){
 
   var newLead = new Lead({
     ip: clientIp,
-    date: new Date(),
     msg: req.body
   })  
 
