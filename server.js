@@ -130,6 +130,7 @@ app.post('/message', function(req, res){
 
   var newLead = new Lead({
     ip: clientIp,
+    date: new Date(),
     msg: req.body
   })  
 
