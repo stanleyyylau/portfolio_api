@@ -5,6 +5,8 @@ var request = require('request');
 
 var nodemailer = require('nodemailer');
 var cors = require('cors')
+var request = require('request');
+var crypto = require('crypto');
 
 var https = require("https");
 setInterval(function() {
@@ -147,12 +149,33 @@ app.post('/message', function(req, res){
           debug: true
       });
 
+      // clientIP should contain real address info
+      request.post(
+          'https://api.ip138.com/query/',
+          { form: { 
+            ip: clientIp,
+            datatype: "json",
+            sign: crypto.createHash('md5').update(`ip=${clientIp}&token=a169a8207f92718bba62fe3b982bfce6`).digest('hex'),
+            oid: "9245",
+            mid: "72126"
+           } },
+          function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                  console.log(body)
+                  clientIp = body;
+              }
+          }
+      );
+
+      clientIp = clientIp.replace('\t', ' From ');
+      clientIp = clientIp.replace(/[ \f\t\v]+$/g, '');
+
       var contentFromUser = {
             ip: clientIp,
             message: req.body
           }
 
-
+      
 
       var text = contentFromUser;
       console.log("the message is " + text);
