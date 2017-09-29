@@ -8,6 +8,17 @@ var cors = require('cors')
 var request = require('request');
 var crypto = require('crypto');
 
+// require('dotenv').config()
+
+var sgTransport = require('nodemailer-sendgrid-transport');
+
+var options = {
+  auth: {
+    api_user: process.env.sendgrid_username,  // to do get this from env
+    api_key: process.sendgrid_password // to do get this from env
+  }
+}
+
 var https = require("https");
 setInterval(function() {
     https.get("https://st-portfolio-on.herokuapp.com/");
@@ -159,17 +170,7 @@ app.post('/message', function(req, res){
     );
 
     // if this is an inquiry from mmldigi, make the leads email more human readable
-    var transporter = nodemailer.createTransport({
-            host: mailInfo.host,      //mail service mail host
-            domains: mailInfo.domains,
-            secureConnection:true,      //secureConnection 使用安全连接
-            port: mailInfo.port,                   //port STMP端口号
-            auth:{
-              user: mailInfo.userAcount, //Email address
-              pass: mailInfo.userPassword //Email pw
-          },
-          debug: true
-      });
+    var transporter = nodemailer.createTransport(sgTransport(options));
 
       // clientIP should contain real address info
 
@@ -192,7 +193,7 @@ app.post('/message', function(req, res){
                           询盘发送IP: ${text.ip}</p>
                         `
         var mailOptions = {
-            from: 'stanleyyylauserver@gmail.com', // sender address
+            from: 'info@mmldigi.com', // sender address
             to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
             subject: '慢慢来官网收到一条询盘...', // Subject line
             //text: text //, // plaintext body
@@ -204,7 +205,7 @@ app.post('/message', function(req, res){
                 console.log(error);
                 res.json({yo: 'error'});
             }else{
-                console.log('Message sent: ' + info.response);
+                console.log('Message sent: ' + info);
                 res.json({yo: info.response, status: 200});
             };
         });   
@@ -231,7 +232,7 @@ app.post('/message', function(req, res){
                           询盘发送IP: ${text.ip}</p>
                         `
         var mailOptions = {
-            from: 'stanleyyylauserver@gmail.com', // sender address
+            from: 'info@mmldigi.com', // sender address
             to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
             subject: '慢慢来官网收到一条询盘...', // Subject line
             //text: text //, // plaintext body
@@ -243,8 +244,8 @@ app.post('/message', function(req, res){
                 console.log(error);
                 res.json({yo: 'error'});
             }else{
-                console.log('Message sent: ' + info.response);
-                res.json({yo: info.response, status: 200});
+                console.log('Message sent: ' + info.message);
+                res.json({yo: info.message, status: 200});
             };
         });            
       }
