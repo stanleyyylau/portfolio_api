@@ -195,7 +195,7 @@ app.post('/message', function(req, res){
         var mailOptions = {
             from: 'sendgrid@mmldigi.com', // sender address
             to: 'stanleyyylau@gmail.com, info@mmldigi.com, mmldigi666@gmail.com', // list of receivers
-            subject: `${text.message.message.name} 慢慢来官网收到一条来自TA的·询盘...`, // Subject line
+            subject: `${text.message.message.name} 慢慢来官网收到一条来自TA的询盘...`, // Subject line
             //text: text //, // plaintext body
             html: emailHtml
         };
@@ -234,7 +234,7 @@ app.post('/message', function(req, res){
         var mailOptions = {
             from: 'sendgrid@mmldigi.com', // sender address
             to: 'stanleyyylau@gmail.com, info@mmldigi.com, mmldigi666@gmail.com', // list of receivers
-            subject: `${text.message.message.name} 慢慢来官网收到一条来自TA的·询盘...`, // Subject line
+            subject: `${text.message.message.clientInfo.name} 慢慢来官网收到一条来自TA的询盘...`, // Subject line
             //text: text //, // plaintext body
             html: emailHtml
         };
