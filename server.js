@@ -232,9 +232,9 @@ app.post('/message', function(req, res){
                           询盘发送IP: ${text.ip}</p>
                         `
         var mailOptions = {
-            from: 'info@mmldigi.com', // sender address
-            to: 'stanleyyylau@gmail.com, info@mmldigi.com', // list of receivers
-            subject: '慢慢来官网收到一条询盘...', // Subject line
+            from: 'sendgrid@mmldigi.com', // sender address
+            to: 'stanleyyylau@gmail.com, info@mmldigi.com, mmldigi666@gmail.com', // list of receivers
+            subject: `${text.message.message.name} 慢慢来官网收到一条来自TA的·询盘...`, // Subject line
             //text: text //, // plaintext body
             html: emailHtml
         };
