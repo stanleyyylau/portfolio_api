@@ -8,6 +8,8 @@ var cors = require('cors')
 var request = require('request');
 var crypto = require('crypto');
 
+var MockAPI = require('./mock');
+
 var https = require("https");
 setInterval(function() {
     https.get("https://st-portfolio-on.herokuapp.com/");
@@ -300,6 +302,11 @@ app.post('/message', function(req, res){
   });
 })
 
+app.post('/mock/bff', function(req, res){
+  MockAPI.FakeFetchBff().then(data=>{
+    res.json(data)
+  })
+})
 
 app.listen(port, function () {
   console.log('Example app listening on port ' + port);
