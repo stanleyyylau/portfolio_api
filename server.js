@@ -302,7 +302,7 @@ app.post('/message', function(req, res){
   });
 })
 
-app.post('/mock/bff', function(req, res){
+app.get('/mock/bff', function(req, res){
   MockAPI.FakeFetchBff().then(data=>{
     res.json(data)
   })
